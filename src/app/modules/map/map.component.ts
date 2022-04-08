@@ -150,15 +150,7 @@ export class MapComponent implements OnInit{
       this.map.flyToBounds(L.polyline(this.list).getBounds());
       this.routeLayer.addLayer(L.marker(this.pickup,{icon: this.pickupIcon})).addTo(this.map);
       this.routeLayer.addLayer(L.marker(this.list[0][0],{icon: this.carIcon})).addTo(this.map);
-      
-      // this.routeLayer.addLayer(L.circleMarker(this.list[0][0], {color: 'red', fillColor: 'green', fillOpacity: 0.7})).addTo(this.map);
-      // this.routeLayer.addLayer(L.circleMarker(this.list[0][(this.list[0]).length-1], {color: 'red', fillColor: 'green', fillOpacity: 0.7})).addTo(this.map);
-      // this.routeLayer.addLayer(L.circleMarker(this.list[1][0], {color: 'red', fillColor: 'green', fillOpacity: 0.7})).addTo(this.map);
-      // this.routeLayer.addLayer(L.circleMarker(this.list[1][this.list[1]).length-1], {color: 'red', fillColor: 'green', fillOpacity: 0.7})).addTo(this.map);
-      // this.routeLayer.addLayer(L.circleMarker(this.list[2][0], {color: 'red', fillColor: 'green', fillOpacity: 0.7})).addTo(this.map);
-      this.routeLayer.addLayer(L.marker(this.list[2][(this.list[2]).length-1], {icon: this.dest2})).addTo(this.map);
-      this.routeLayer.addLayer(L.marker(this.list[2][(this.list[2]).length-1], {icon: this.dest2})).addTo(this.map);
-
+      this.routeLayer.addLayer(L.marker(this.destination,{icon: this.destinationIcon})).addTo(this.map);
       this._popoutService.setMessage((`The taxi is ${(this.taxiDist/1000).toFixed(1)}km away. Estimated time of arrival:  ${(this.taxiDist/1000).toFixed(0)} - ${(this.taxiDist/1000*1.5).toFixed(0)}  mins.` ));
     }
   }
@@ -166,7 +158,6 @@ export class MapComponent implements OnInit{
   public deleteLine(): void {
     this.routeLayer.clearLayers();
     this.map.removeLayer(this.routeLayer);
-    this.deletePrev();
   }
 
   public deleteComp(): void {
@@ -187,25 +178,16 @@ export class MapComponent implements OnInit{
   public plot_test(): void {
     console.log(this.compList)
     for (let index = 0; index < this.compList.length; index++) {
-      // this.compLayer.addLayer(L.circleMarker(this.compList[index][0], {color: 'green', fillColor: 'green', fillOpacity: 0.3})).addTo(this.map);
-      // this.compLayer.addLayer(L.circleMarker(this.compList[index][(this.compList[index]).length-1], {color: 'green', fillColor: 'red', fillOpacity: 0.7})).addTo(this.map);
-      this.compLayer.addLayer(L.marker(this.compList[index][0],{icon: this.car2Icon})).addTo(this.map)
-      this.compLayer.addLayer(L.marker(this.compList[index][(this.compList[index]).length-1],{icon: this.dest2})).addTo(this.map)
+       this.compLayer.addLayer(L.marker(this.compList[index][0],{icon: this.car2Icon})).addTo(this.map);
+      this.compLayer.addLayer(L.marker(this.compList[index][(this.compList[index]).length-1],{icon: this.dest2})).addTo(this.map);
       this.compLayer.addLayer(L.polyline(this.compList[index], {color: 'green', weight: 2,opacity: 0.3})).addTo(this.map); 
-      console.log("done")
       this.map.flyToBounds(L.polyline(this.compList).getBounds())
     }
   }
   
   public plot_prev(): void {
-    console.log(this.prevroute)
-    // this.routeLayer.addLayer(L.marker(this.destination,{icon: this.user2Icon})).addTo(this.map);
-      // this.routeLayer.addLayer(L.circleMarker(this.compList[this.prevroute][0], {color: 'blue', fillColor: 'green', fillOpacity: 0.7})).addTo(this.map);
-      // this.routeLayer.addLayer(L.circleMarker(this.compList[this.prevroute][this.compList[this.prevroute].length-1], {color: 'blue', fillColor: 'red', fillOpacity: 0.7})).addTo(this.map);
-      this.routeLayer.addLayer(L.marker(this.compList[this.prevroute][this.compList[this.prevroute].length-1],{icon: this.destinationIcon})).addTo(this.map);
+     this.routeLayer.addLayer(L.marker(this.compList[this.prevroute][this.compList[this.prevroute].length-1], {icon: this.dest2})).addTo(this.map);
       this.routeLayer.addLayer(L.polyline(this.compList[this.prevroute], {color: 'blue', weight: 5,opacity: 0.5})).addTo(this.map); 
-      console.log("done")
-
     }
 
   public plot_all(): void {
@@ -224,8 +206,6 @@ export class MapComponent implements OnInit{
   }
 
   public activate_dev_mode():void{
-    // console.log(this.userMode.nativeElement.class);
-    // console.log(this.devMode.nativeElement.class);
     if(this.devSwitch){
       this.devSwitch= false;
     }
@@ -241,7 +221,6 @@ export class MapComponent implements OnInit{
         console.log(response)
         for (let index = 0; index < this.points['vertex'].length; index++) {
           this.vertexLayer.addLayer(L.marker(this.points['vertex'][index],{icon: this.dest2})).addTo(this.map);
-          // this.vertexLayer.addLayer(L.circleMarker(this.points['vertex'][index], {color: 'green', fillColor: 'green', fillOpacity: 0.3})).addTo(this.map);
         }
         for (let index = 0; index < this.points['listing'].length; index++) {
           this.vertexLayer.addLayer(L.polyline(this.points['listing'][index]['route'], {color: 'green', weight: 1, opacity: 0.7})).addTo(this.map);
@@ -264,10 +243,6 @@ export class MapComponent implements OnInit{
         this.drawDemo();
       },
       (e:any)=>{
-        if(e){
-          console.log(" meow",e);
-        }
-        
         this._popoutService.setMessage("Invalid postal code or request timeout. Please try again");
       }
     )
@@ -275,14 +250,11 @@ export class MapComponent implements OnInit{
 
   public drawDemo(): void {
     if (this.list != null)  {
-  
       this.routeLayer.addLayer(L.polyline(this.list, {color: 'blue', weight: 5, opacity: 0.7})).addTo(this.map);
       this.map.flyToBounds(L.polyline(this.list).getBounds());
       this.routeLayer.addLayer(L.marker(this.list[0],{icon: this.carIcon})).addTo(this.map);
       this.routeLayer.addLayer(L.marker(this.list[this.list.length-1],{icon: this.destinationIcon})).addTo(this.map);
-      // this.routeLayer.addLayer(L.circleMarker(this.list[0], {color: 'red', fillColor: 'green', fillOpacity: 0.7})).addTo(this.map);
-      // this.routeLayer.addLayer(L.circleMarker(this.list[this.list.length-1], {color: 'red', fillColor: 'red', fillOpacity: 0.7})).addTo(this.map);
-      this._popoutService.setMessage((`The taxi is ${(this.taxiDist/1000).toFixed(1)}km away. Estimated time of arrival:   ${(this.taxiDist/1000 / 60 * 60).toFixed(1) } - ${(this.taxiDist /1000 / 60 * 60 *1.5).toFixed(0)}  mins.` ));
+         this._popoutService.setMessage((`The taxi is ${(this.taxiDist/1000).toFixed(1)}km away. Estimated time of arrival:   ${(this.taxiDist/1000 / 60 * 60).toFixed(1) } - ${(this.taxiDist /1000 / 60 * 60 *1.5).toFixed(0)}  mins.` ));
     }
   }
 }
