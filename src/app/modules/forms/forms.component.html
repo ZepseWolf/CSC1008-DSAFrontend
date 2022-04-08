@@ -1,0 +1,20 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav class="mat-sidenav" #sidenav mode="over">
+      <div class="form">
+        <mat-form-field appearance="outline">
+          <mat-label>'Enter Postal Code'</mat-label>
+          <input matInput placeholder="Placeholder">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>'Enter Postal Code'</mat-label>
+          <input matInput placeholder="Placeholder">
+        </mat-form-field>
+        <div><button class="btn submit-button" mat-button (click)="sidenav.toggle()">Book Ride</button></div>
+      </div>
+
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
+      <div><mat-icon class="sidenav-button" mat-button (click)="sidenav.toggle()">last_page</mat-icon></div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

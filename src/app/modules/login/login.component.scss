@@ -1,0 +1,125 @@
+.content{
+    width: 450px;
+    margin: 0 auto;
+    padding: 30px 0px;
+    // height: calc(100% - 40px);
+   
+    
+    mat-form-field {
+        width: 100%;
+        .mat-focus-indicator{
+            margin: 0;
+        }
+    }
+
+    .pass-field{
+        width: 48%;
+    }
+    
+    .pass-error{
+        display: inline;
+    }
+
+    .error-validation{
+        color: red;
+        font-size:12px;
+        padding-left:3px;
+    }
+    
+    .tab-title{
+        width: 100%;
+        height: 40px;
+        display: flex;
+        padding:0 ;
+        margin: 0;
+        list-style: none;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4) ;
+        
+
+        .nav-item{
+            box-shadow:inset 0px 11px 8px -13px rgba(0, 0, 0, 0.4);
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            background: #343436;
+            color: #a3a3a3;
+            width: 50%;
+            display: flex;
+            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            // border: 1px solid black;
+            
+        }
+
+        .active{
+            background: #fff;
+            color: #000;
+        }
+    }
+    
+    .tab-content{
+        background: #fff;
+        color: #000;
+        z-index: 2;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
+        padding: 15px 30px;
+        
+        .form-box{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .register-caption{
+                display: flex;
+                align-items: center;
+                // font-family: mainFont-bold;
+            }
+        }
+
+        .submit-button{
+            // font-family: "mainFont-bold";
+            width: 100%;
+            margin: 20px 0 ;
+            // float: right;
+            font-size: 13px;
+        }
+
+        #login{
+            height: 500px;
+        }
+
+        #regis{
+            display: none;
+        }
+        
+    }
+    
+    .submit-button{
+        height: 45px;
+        border: 2px solid #949494;
+        background-color: #313131;
+        color: #fff;
+        &:hover {
+            background-color: #141414;
+        }
+    }
+  
+    ::ng-deep .mat-form-field-wrapper{
+        padding: 0;
+    }
+
+    ::ng-deep .mat-form-field-empty .mat-form-field-label {
+        color: rgb(139, 108, 108);
+    }
+
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: rgb(134, 134, 134);
+    }
+
+    // ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline {
+    //     color: red!important;
+    // }
+}

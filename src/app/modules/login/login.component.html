@@ -1,0 +1,135 @@
+<img style="position:fixed;height: 100%;width: 100%; z-index:-1;opacity: 0.5;" src="assets/img/pexels-photo-2127022.jpg"/>
+<!-- <app-popout></app-popout> -->
+<div class="content">
+    <div class="tab-title">
+      <div id="login-tab" class="nav-item active" (click)="changeTab('login')">
+        Login
+      </div>
+      <div id="register-tab" class="nav-item" (click)="changeTab('regis')">
+        Register
+      </div>
+    </div>
+    
+    
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="login" class="form-box ">
+        
+        <img src="assets/img/lift.png" style="max-width: 100%;max-height: 200px;">
+        <div style=" font-weight:600;text-align: center;margin-bottom: 30px;"> Sign in to your CIFT account now!
+        </div>
+  
+        <div class="d-flex align-items-center justify-content-center">
+  
+          <form class="form" [formGroup]="loginForm" (ngSubmit)="submit_login_form()">
+  
+            <mat-form-field hideRequiredMarkers appearance="outline">
+              <mat-label>Username</mat-label>
+              <input matInput placeholder="Username" formControlName="username" name="username">
+            </mat-form-field>
+  
+            <mat-form-field hideRequiredMarkers appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Password" formControlName="password" name="password" type="password">
+            </mat-form-field>
+  
+            <div class="form-group">
+              <button class="btn submit-button" [disabled]="!loginForm.valid">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div id="regis" class="form-box content-active">
+        <div class="">
+          <form class="form" [formGroup]="registerForm" (ngSubmit)="submit_register_form()">
+            <div class="register-caption"><img src="assets/img/lift.png" style="width: 100px;height: 40px;"> &nbsp;Travel made easy. </div>
+  
+            <mat-form-field hideRequiredMarkers appearance="outline">
+              <mat-label>Username</mat-label>
+              <input matInput placeholder="Username" formControlName="username" name="username">
+            </mat-form-field>
+            <div class="error-validation"
+              *ngIf="registerForm.controls.username.errors && (registerForm.controls.username.dirty || registerForm.controls.username.touched)">
+              <p *ngIf="registerForm.controls.username.errors.required">Username is required</p>
+              <p *ngIf="registerForm.controls.username.errors.minlength">Username must be 8 characters long</p>
+            </div>
+  
+            <mat-form-field appearance="outline" class="pass-field" style="margin-right:4%">
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Password" formControlName="password" [type]="hide1 ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide1">
+                <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="pass-field">
+              <mat-label>Confirm</mat-label>
+              <input matInput placeholder="Confirm" formControlName="confirmation" [type]="hide2 ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide2">
+                <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="error-validation pass-error"
+              *ngIf="registerForm.controls.password.errors && (registerForm.controls.password.dirty || registerForm.controls.password.touched)">
+              <p *ngIf="registerForm.controls.password.errors.required" class="pass-error">Password is required</p>
+              <p *ngIf="!registerForm.controls.password.errors.required && registerForm.controls.confirmation.errors?.required   "
+                class="pass-error">Password confirmation required</p>
+              <p *ngIf="registerForm.controls.password.errors.minlength && registerForm.controls.confirmation.errors?.required"
+                class="pass-error"> and make sure your password has asdsa.</p>  
+              <p *ngIf="!registerForm.controls.confirmation.errors?.required && registerForm.controls.password.errors.minlength  "
+                class="pass-error"> Make sure your password has asdsa.</p>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" formControlName="email" name="myEmail"
+                pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+            </mat-form-field>
+            <div class="error-validation"
+              *ngIf="registerForm.controls.email.errors && (registerForm.controls.email.dirty || registerForm.controls.email.touched)">
+              <p *ngIf="registerForm.controls.email.errors.required">Email is required</p>
+              <p *ngIf="registerForm.controls.email.errors.pattern">Wrong Email format</p>
+            </div>
+  
+            <mat-form-field appearance="outline">
+              <mat-label>Date Of Birth</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dob" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" placeholder="Gender">
+                <mat-option value="Male">
+                  Male
+                </mat-option>
+                <mat-option value="Female">
+                  Female
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+              <mat-label>Phone Number</mat-label>
+              <input matInput formControlName="phone">
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <mat-select formControlName="country" placeholder="Country">
+                <mat-option *ngFor="let country of countries" [value]="country">
+                  {{country.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="form-group">
+              <button class="btn submit-button" [disabled]="!registerForm.valid">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

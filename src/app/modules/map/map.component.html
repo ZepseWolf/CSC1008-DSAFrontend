@@ -1,0 +1,61 @@
+
+
+<mat-sidenav-container class="example-container"> 
+    <mat-sidenav class="mat-sidenav" #sidenav mode="over">
+      <div #userMode class="form user" *ngIf="devSwitch">
+        <img src="assets/img/lift.png" style="width: 100px;height: 33px; ">
+        
+        <form class="main-form" [formGroup]="postalForm">
+          <div style="color:rgb(0, 0, 0);font-size: 20px; width: 200px;text-align: center; margin-bottom: 20px;">Hello , Dave where are we going today?</div>
+          <mat-form-field appearance="outline">
+            <mat-label>Pickup Address</mat-label>
+            <input matInput placeholder="Postal Code" formControlName="pickup" name="pickup">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Destination Address</mat-label>
+            <input matInput placeholder="Postal Code" formControlName="destination" name="destination">
+          </mat-form-field>
+          <div><button class="btn generate-route-button" mat-button (click)="submit_form()">Book Ride</button></div>
+          <button class="btn generate-route-button" mat-button (click)="deleteLine()">Remove line plot</button>
+        </form>
+
+        <div class="misc"> 
+          <button class="btn generate-route-button" mat-button (click)="activate_dev_mode()">Dev Mode</button>
+        </div>
+      </div>
+
+      <div class="form dev" #devMode *ngIf="!devSwitch" >
+        <form class="main-form" [formGroup]="demoForm" >
+          <div style="color:rgb(255, 255, 255);font-size: 20px; width: 200px;text-align: center; margin:20px 0px;animation: fadeIn 1s forwards;">Djikstra Demostration, Please select between 2 points (1 - 79)</div>
+          <mat-form-field appearance="outline">
+            <mat-label>Pickup Address</mat-label>
+            <input matInput placeholder="Start index" formControlName="start" name="start">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label>Destination Address</mat-label>
+            <input matInput placeholder="End index" formControlName="end" name="end" >
+          </mat-form-field>
+          <div><button class="route-button" mat-button (click)="submit_form_demo()">Display Dijkstra</button></div>
+          <button class="route-button" mat-button (click)="deleteLine()">Remove Dijkstra</button>
+        </form>
+        <button class="route-button" mat-button (click)="activate_dev_mode()" >User Mode</button>
+        <!-- <button class="route-button" mat-button (click)="plot_prev()">Show previous route</button>
+        <button class="route-button" mat-button (click)="deletePrev()">Remove previous plot</button> -->
+        <button class="route-button" mat-button (click)="plot_test()">Show test route</button>
+        <button class="route-button" mat-button (click)="deleteComp()">Remove comparision plot</button>
+        <button class="route-button" mat-button (click)="plot_all()">Show all route</button>
+        <button class="route-button" mat-button (click)="deleteAllRoute()">Remove all plot</button>
+        <button class="route-button" mat-button (click)="get_vertex()">Show vertex</button>
+        <button class="route-button" mat-button (click)="deleteVertex()" style="margin-bottom:30px;">Remove all vertex</button>
+      </div>
+      <!-- <div class="dev-button">
+        
+      </div> -->
+
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
+      <div><mat-icon class="sidenav-button" mat-button (click)="sidenav.toggle()">last_page</mat-icon></div>
+      <div id="map"></div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
