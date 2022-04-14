@@ -322,7 +322,7 @@ export class LoginComponent implements OnInit ,AfterViewInit {
         if (data.success){
           this._router.navigate(['/map']); 
         }else{
-          this._popoutService.setMessage(data.message);
+          this._popoutService.setMessage(data.message+" (Username:Cat , Password:123) ");
         }
       }
     );

@@ -80,10 +80,9 @@
         }
 
         .submit-button{
-            // font-family: "mainFont-bold";
             width: 100%;
             margin: 20px 0 ;
-            // float: right;
+            cursor: pointer;
             font-size: 13px;
         }
 
@@ -103,7 +102,10 @@
         background-color: #313131;
         color: #fff;
         &:hover {
-            background-color: #141414;
+            background-color: #414141;
+        }
+        &:focus{
+            background-color: #414141;
         }
     }
   
